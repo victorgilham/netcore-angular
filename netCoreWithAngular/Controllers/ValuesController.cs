@@ -16,7 +16,8 @@ namespace netCoreWithAngular.Controllers
         {
             _dbcontext = dbcontext;
         }
-        // GET api/values
+
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
