@@ -50,7 +50,7 @@ namespace netCoreWithAngular.Controllers
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             var userFromRepo = await _repository.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
-
+            var errorMsg = Unauthorized();
             if (userFromRepo == null) return Unauthorized();
 
 

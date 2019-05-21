@@ -18,7 +18,7 @@ export class RegistrationComponent implements OnInit {
       () => {
         console.log('Registration succesful');
       },
-      error => console.log('Error', error)
+      error => console.log(error)
     );
   };
   cancel = () => {
