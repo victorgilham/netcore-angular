@@ -1,6 +1,7 @@
 import { AlertService } from './../_services/alert.service';
 import { AuthService } from './../_services/auth.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -12,7 +13,8 @@ export class NavComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -24,6 +26,9 @@ export class NavComponent implements OnInit {
       },
       error => {
         this.alertService.error(error);
+      },
+      () => {
+        this.router.navigate(['/members']);
       }
     );
     // tslint:disable-next-line: semicolon
@@ -37,6 +42,8 @@ export class NavComponent implements OnInit {
   logout = () => {
     localStorage.removeItem('token');
     this.alertService.message('Logged out');
+    this.router.navigate(['/home']);
+
     // tslint:disable-next-line: semicolon
   };
 }
