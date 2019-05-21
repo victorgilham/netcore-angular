@@ -1,9 +1,11 @@
+import { AlertService } from './_services/alert.service';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AuthService } from './_services/auth.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,8 +20,14 @@ import { RegistrationComponent } from './registration/registration.component';
     HomeComponent,
     RegistrationComponent
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
-  providers: [AuthService, ErrorInterceptorProvider],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    BsDropdownModule.forRoot()
+  ],
+  providers: [AuthService, ErrorInterceptorProvider, AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

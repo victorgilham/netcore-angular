@@ -1,3 +1,4 @@
+import { AlertService } from './../_services/alert.service';
 import { AuthService } from './../_services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -7,38 +8,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  model: any = {};
+  private model: any = {};
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    private alertService: AlertService
+  ) {}
 
   ngOnInit() {}
-
-  // login() {
-  //   console.log(this, 'This');
-  //   console.log(this.model);
-  // }
 
   login = () => {
     this.authService.login(this.model).subscribe(
       next => {
-        console.log('Logged in');
+        this.alertService.success('Logged in succesfully');
       },
       error => {
-        console.log(error, 'Error to login');
+        this.alertService.error(error);
       }
     );
     // tslint:disable-next-line: semicolon
   };
 
   loggedIn = () => {
-    const token = localStorage.getItem('token');
-    return !!token;
+    return this.authService.loggedIn();
     // tslint:disable-next-line: semicolon
   };
 
   logout = () => {
     localStorage.removeItem('token');
-    console.log('logged out');
+    this.alertService.message('Logged out');
     // tslint:disable-next-line: semicolon
   };
 }
