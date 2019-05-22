@@ -19,6 +19,6 @@ namespace netCoreWithAngular.Helpers
             if (dateOfBirthTime.AddYears(age) > DateTime.Today) age--;
             return age;
         }
-        public static void ResolveUsing<TSource, TDestination, TMember, TResult>(this IMemberConfigurationExpression<TSource, TDestination, TMember> member, Func<TSource, TResult> resolver) => member.MapFrom((Func<TSource, TDestination, TResult>)((src, dest) => resolver(src)));
+        public static void ResolveUsing<TSource, TDestination, TMember, TResult>(this IMemberConfigurationExpression<TSource, TDestination, TMember> member, Func<TSource, TResult> resolver) => member.MapFrom((src, dest) => resolver(src));
     }
 }

@@ -2,7 +2,6 @@
 using AutoMapper;
 using netCoreWithAngular.DTO;
 using netCoreWithAngular.Models;
-using netCoreWithAngular.Helpers;
 
 namespace netCoreWithAngular.Helpers
 {
@@ -18,7 +17,6 @@ namespace netCoreWithAngular.Helpers
                 .ForMember(dest => dest.Age, opt =>
                 {
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
-                    //opt.MapFrom(d => d.DateOfBirth,);
                 });
             CreateMap<User, UserForDetailDto>()
                 .ForMember(dest => dest.PhotoUrl, opt =>
