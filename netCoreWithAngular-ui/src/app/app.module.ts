@@ -18,6 +18,7 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { AuthService } from './_services/auth.service';
 import { appRoutes } from './routes';
 import { AuthGuard } from './_guards/auth.guard';
+import { UserService } from './_services/user.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,13 @@ import { AuthGuard } from './_guards/auth.guard';
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthService, ErrorInterceptorProvider, AlertService, AuthGuard],
+  providers: [
+    AuthService,
+    ErrorInterceptorProvider,
+    AlertService,
+    AuthGuard,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
