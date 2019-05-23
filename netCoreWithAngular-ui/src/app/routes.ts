@@ -1,9 +1,11 @@
+import { Routes, CanActivate } from '@angular/router';
+
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MembersComponent } from './members/members.component';
 import { HomeComponent } from './home/home.component';
-import { Routes, CanActivate } from '@angular/router';
 
 export const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +17,10 @@ export const appRoutes: Routes = [
       {
         path: 'members',
         component: MembersComponent
+      },
+      {
+        path: 'members/:id',
+        component: MemberDetailComponent
       },
       { path: 'messages', component: MessagesComponent },
       { path: 'lists', component: ListsComponent }
