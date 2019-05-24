@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -40,6 +42,20 @@ namespace netCoreWithAngular.Controllers
             var userToReturn = _mapper.Map<UserForDetailDto>(user);
 
             return Ok(userToReturn);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
+        {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)) return Unauthorized();
+
+            var user = await _userRepo.GetUser(id);
+
+            _mapper.Map(userForUpdateDto, user);
+
+            if (await _userRepo.SaveAll()) return NoContent();
+
+            throw new Exception($"Updating user {id} failed");
         }
     }
 }

@@ -1,7 +1,7 @@
 import { AlertService } from './../../_services/alert.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from './../../_models/user';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -10,13 +10,18 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./member-edit.component.css']
 })
 export class MemberEditComponent implements OnInit {
-  @ViewChild('editUserInfoForm') editUserInfoForm: NgForm;
-  user: User;
-  data: string;
   constructor(
     private route: ActivatedRoute,
     private alertService: AlertService
   ) {}
+  @ViewChild('editUserInfoForm') editUserInfoForm: NgForm;
+  user: User;
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.editUserInfoForm.dirty) {
+      $event.returnValue = true;
+    }
+  }
 
   ngOnInit() {
     this.route.data.subscribe(data => {

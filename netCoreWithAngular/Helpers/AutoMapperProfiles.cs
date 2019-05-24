@@ -28,6 +28,7 @@ namespace netCoreWithAngular.Helpers
                     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
                 });
             CreateMap<Photo, PhotosForUserDetailsDto>();
+            CreateMap<UserForUpdateDto, User>();
         }
     }
 }
