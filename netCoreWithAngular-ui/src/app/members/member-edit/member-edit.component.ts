@@ -1,3 +1,5 @@
+import { AuthService } from './../../_services/auth.service';
+import { UserService } from './../../_services/user.service';
 import { AlertService } from './../../_services/alert.service';
 import { ActivatedRoute } from '@angular/router';
 import { User } from './../../_models/user';
@@ -12,7 +14,9 @@ import { NgForm } from '@angular/forms';
 export class MemberEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private userService: UserService,
+    private authService: AuthService
   ) {}
   @ViewChild('editUserInfoForm') editUserInfoForm: NgForm;
   user: User;
@@ -29,8 +33,16 @@ export class MemberEditComponent implements OnInit {
     });
   }
   updateUser = () => {
-    console.log(this.user);
-    this.alertService.success('Info updated');
-    this.editUserInfoForm.reset(this.user);
+    this.userService
+      .updateUserInfo(this.authService.decodedToken.nameid[0], this.user)
+      .subscribe(
+        next => {
+          this.alertService.success('Info updated');
+          this.editUserInfoForm.reset(this.user);
+        },
+        error => {
+          this.alertService.error(error);
+        }
+      );
   };
 }
