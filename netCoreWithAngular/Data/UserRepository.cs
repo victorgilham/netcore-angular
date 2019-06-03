@@ -6,7 +6,7 @@ using netCoreWithAngular.Models;
 
 namespace netCoreWithAngular.Data
 {
-    public class UserRepository:IUserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly DataContext _dbContext;
 
@@ -41,6 +41,13 @@ namespace netCoreWithAngular.Data
             var user = await _dbContext.Users.Include(p => p.Photos).FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
+        }
+
+        public async Task<Photo> GetPhoto(int id)
+        {
+            var photo = await _dbContext.Photos.FirstOrDefaultAsync(p => p.Id == id);
+
+            return photo;
         }
     }
 }
